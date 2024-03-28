@@ -1,0 +1,146 @@
+<div class="col-12 col-lg-2 col-md-6">
+  <label for="selec">Status: </label>
+  <select (change)="changeStatus()" [(ngModel)]="status" aria-label="Default select example"
+          class="form-select bg-dark text-white" id="selec">
+    <option value="All">All</option>
+    <option class="text-secondary" value="Pending">Pending</option>
+    <option class="text-success" value="Accepted">Accepted</option>
+    <option class="text-danger" value="Rejected">Rejected</option>
+  </select>
+
+</div>
+
+<br/>
+<div class="table-responsive">
+
+  <h5>Deposits List</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Deposit Method</th>
+      <th scope="col">User Wallet</th>
+      <th scope="col">Operation Id</th>
+      <th scope="col">UserName</th>
+      <th scope="col">Status</th>
+      <th scope="col">Modified By</th>
+      <th scope="col">Details</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let d of depositsPaginatedList?.items">
+      <tr>
+        <td>{{d.id}}</td>
+        <td>{{d.created | date :'dd/MM/yyyy, h:mm a'}}</td>
+        <td class="fw-bolder text-warning">{{d.amount}}</td>
+        <td class="fw-bolder">{{d.depositMethod}}</td>
+        <td style="word-break: break-word;" class="fw-bolder">{{d.userWalletId}}</td>
+        <td style="word-break: break-word;" class="fw-bolder">{{d.operationId}}</td>
+        <td class="fw-bolder">{{d.userName}}</td>
+        <td class="fw-bolder">
+          <div [className]="getStatusBg(d.status!)" class="text-center">
+            <p class="text-center ">{{d.status}}</p>
+          </div>
+        </td>
+        <td class="fw-bolder">{{d.lastModifiedBy}}</td>
+        <td class="text-center">
+          <a [href]="d.proofImage" class="bi bi-image btn-outline-secondary  p-1"
+             style="cursor: pointer; font-size: 1.2rem"
+             target="_blank"
+             title="Image"></a>
+          <i (click)="handleEditDepositClick(d.id!,d.status!)" class="bi bi-pencil-square btn-outline-secondary m-1 p-1"
+             data-bs-target="#editDeposit"
+             data-bs-toggle="modal"
+             title="Edit"
+             style="cursor: pointer;font-size: 1.2rem"></i>
+        </td>
+      </tr>
+    </ng-container>
+
+    </tbody>
+    <caption>Total Deposits : {{depositsPaginatedList?.totalCount}}</caption>
+  </table>
+</div>
+
+<!--Edit Deposit Status Modal-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="editDeposit" tabindex="-1">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"> Change Deposit Status</h5>
+        <button aria-label="Close" class="btn-close bg-secondary text-white" data-bs-dismiss="modal"
+                type="button"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="alert ">
+          <p>Current Deposit status : <span [className]="getStatusBg(currentStatus)">{{currentStatus}}</span></p>
+        </div>
+
+
+        <label for="cancelStatus">New Status : </label>
+        <select [(ngModel)]="newStatus"
+                [ngClass]="{'text-success': newStatus ==='Accepted','text-secondary':newStatus ==='Pending','text-danger':newStatus==='Rejected'}"
+                aria-label="Default select example"
+                class="form-select bg-dark text-white" id="cancelStatus">
+          <option disabled selected value="Select">Select</option>
+          <option class="text-success " value="Accepted">Accepted</option>
+          <option class="text-secondary" value="Pending">Pending</option>
+          <option class="text-danger" value="Rejected">Rejected</option>
+        </select>
+        <br/>
+        <label>Feed Back <span class="text-secondary">optional</span></label>
+        <textarea [(ngModel)]="adminFeedBack" class="form-control bg-dark text-white "></textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button (click)="depositId = 0" class="btn btn-secondary" data-bs-dismiss="modal" type="button">Close</button>
+        <button (click)="changeNewStatus()" [class.disabled]="currentStatus === newStatus || newStatus === 'Select'"
+                class="btn btn-danger"
+                type="button"
+        >Save
+        </button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<nav aria-label="Page navigation example" class=" pb-5 border-0">
+  <ul class="pagination border-0 justify-content-center ">
+
+    <li [class.disabled]="!depositsPaginatedList?.hasPreviousPage" class="page-item bg-dark">
+      <a [queryParams]="{page:depositsPaginatedList.pageIndex-1!}" [routerLink]=[] aria-disabled="true"
+         class="page-link bg-dark border-0"
+         tabindex="-1"> <i class="bi bi-chevron-left"></i> Previous</a>
+    </li>
+
+    <li *ngIf="depositsPaginatedList.hasPreviousPage" class="page-item " routerLinkActive="active">
+      <a [queryParams]="{page:depositsPaginatedList.pageIndex -1}"
+         [routerLink]=[]
+         class="page-link bg-dark border-0">{{depositsPaginatedList.pageIndex - 1}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active">
+      <a [queryParams]="{page:depositsPaginatedList.pageIndex}"
+         [routerLink]=[]
+         class="page-link bg-dark border-0">{{depositsPaginatedList.pageIndex}}</a>
+    </li>
+    <li *ngIf="depositsPaginatedList.hasNextPage" class="page-item" routerLinkActive="active">
+      <a [queryParams]="{page:depositsPaginatedList.pageIndex+1}"
+         [routerLink]=[]
+         class="page-link bg-dark border-0">{{depositsPaginatedList.pageIndex + 1}}</a>
+    </li>
+    <li [class.disabled]="!depositsPaginatedList.hasNextPage" class="page-item">
+      <a [queryParams]="{page:depositsPaginatedList.pageIndex+1}" [routerLink]=[] class="page-link bg-dark border-0">Next
+        <i
+          class="bi bi-chevron-right"></i></a>
+    </li>
+  </ul>
+</nav>

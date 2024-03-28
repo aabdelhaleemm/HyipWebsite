@@ -1,0 +1,72 @@
+<h5>Transactions History</h5>
+
+<div class="table-responsive">
+  <table class="table table-dark  table-striped table-bordered ">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Type</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let t of transactions?.items">
+      <tr>
+        <td>{{t.id}}</td>
+        <td>{{t.created | date :'dd/MM/yyyy, h:mm a '  }}</td>
+        <td>{{getNewStatusName(t.type!)}}</td>
+        <td class="fw-bold" [class.text-danger]="t.amount! <0"
+            [class.text-success]="t.amount! >0">{{t.amount! > 0 ? '+' : ''}}{{t.amount}}</td>
+        <td class="fw-bolder">
+          <div class="text-center" [className]="getStatusBgClass(t.status!)">
+            <p class="text-center">{{t.status}}</p>
+          </div>
+
+        </td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="transactions?.items?.length! === 0" class="text-muted text-center">
+      <td colspan="5">
+        No transactions found
+      </td>
+    </tr>
+
+    </tbody>
+    <caption>
+      Total Number Of Transactions : {{transactions.totalCount}}
+    </caption>
+  </table>
+</div>
+
+
+<nav aria-label="Page navigation example" class=" pb-5 border-0">
+  <ul class="pagination border-0 justify-content-center ">
+
+    <li class="page-item bg-dark" [class.disabled]="!transactions?.hasPreviousPage">
+      <a class="page-link bg-dark border-0" tabindex="-1" aria-disabled="true" [routerLink]=[]
+         [queryParams]="{page:transactions.pageIndex-1!}"> <i class="bi bi-chevron-left"></i> Previous</a>
+    </li>
+
+    <li class="page-item " routerLinkActive="active" *ngIf="transactions.hasPreviousPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:transactions.pageIndex -1}"
+         class="page-link bg-dark border-0">{{transactions.pageIndex - 1}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active">
+      <a [routerLink]=[]
+         [queryParams]="{page:transactions.pageIndex}"
+         class="page-link bg-dark border-0">{{transactions.pageIndex}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active" *ngIf="transactions.hasNextPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:transactions.pageIndex+1}"
+         class="page-link bg-dark border-0">{{transactions.pageIndex + 1}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="!transactions.hasNextPage">
+      <a class="page-link bg-dark border-0" [routerLink]=[] [queryParams]="{page:transactions.pageIndex+1}">Next <i
+        class="bi bi-chevron-right"></i></a>
+    </li>
+  </ul>
+</nav>

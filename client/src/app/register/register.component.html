@@ -1,0 +1,45 @@
+<div class="registration-form">
+  <form [formGroup]="registerForm">
+    <div class="form-icon">
+      <span><i class="bi bi-person-check"></i></span>
+    </div>
+    <h2 class="text-white text-center">Create Account</h2>
+    <div class="form-group" *ngIf="reference !== null">
+      <label class="text-muted">Reference Username</label>
+      <input [value]="reference" type="text" class="form-control item text-info" id="reference" placeholder="reference"
+             style="background-color: #282f34;color: white" disabled>
+    </div>
+    <div class="form-group">
+      <input formControlName="userName" type="text" class="form-control item" id="username" placeholder="Username"
+             style="background-color: #282f34;color: white">
+    </div>
+    <div class="form-group">
+      <input formControlName="email" type="email" class="form-control item" id="email" placeholder="Email"
+             style="background-color: #282f34;color: white">
+    </div>
+    <div class="form-group mb-3">
+      <input formControlName="password" type="password" class="form-control item mb-0" id="password"
+             placeholder="Password"
+             style="background-color: #282f34;color: white">
+      <small class="text-muted">*password should be more than 5 char length</small>
+      <br>
+    </div>
+    <div class="form-group">
+      <input formControlName="confirmPassword" type="password" class="form-control item" id="confirmPassword"
+             placeholder="Confirm Password"
+             style="background-color: #282f34;color: white">
+      <small *ngIf="checkPass()" class="text-danger">
+        * Password Does not match
+      </small>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-block create-account"
+              [class.disabled]="checkPass() || registerForm.invalid || isSameLength()" (click)="register()">Register
+      </button>
+    </div>
+    <br/>
+    <h6 class="text-white">Already have account? <a routerLink="/login">Login</a></h6>
+
+  </form>
+
+</div>

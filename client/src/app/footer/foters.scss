@@ -1,0 +1,99 @@
+
+
+
+$font-family-sans-serif-2: 'Poppins', sans-serif;
+$font-family-serif: 'Source Serif Pro', serif;
+
+
+
+body {
+  font-family: $font-family-serif;
+}
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: $font-family-serif;
+}
+a {
+  transition: .3s all ease;
+  &, &:hover {
+    text-decoration: none!important;
+  }
+}
+.content {
+  height: 70vh;
+}
+
+// footer 9
+.footer-16371 {
+  padding: 3rem 0;
+  font-family: $font-family-sans-serif-2;
+
+  .footer-site-logo {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+    a {
+      color: #4200ff;
+    }
+  }
+
+  .nav-links {
+    padding: 0;
+    margin: 0;
+    li {
+      display: inline-block;
+      a {
+        padding: 6px;
+        color: white;
+        &:hover {
+          color: #4200ff;
+        }
+      }
+    }
+  }
+  .social {
+    h3 {
+      font-family: $font-family-sans-serif-2;
+      font-weight: bold;
+      font-size: 18px;
+      color:white;
+    }
+    ul {
+      li {
+        display: inline-block;
+        a {
+          display: inline-block;
+          padding: 10px;
+        }
+        &.in {
+          a {
+            color: #1C8EBE;
+          }
+        }
+        &.tw {
+          a {
+            color: #009AE8;
+          }
+        }
+        &.fb {
+          a {
+            color: #0D8AF0;
+          }
+        }
+        &.dr {
+          a {
+            color: #fa38c1;
+          }
+        }
+        &.pin {
+          a {
+            color: #dd4d5a;
+          }
+        }
+      }
+    }
+  }
+  .copyright {
+    color: darken(#ccc, 20%);
+  }
+}

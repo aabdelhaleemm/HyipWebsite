@@ -1,0 +1,70 @@
+<h5>Send money</h5>
+<br>
+
+
+<div class="col-lg-6 ">
+  <label>Your balance</label>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text bg-black text-white" id="basic-addo">$</span>
+    </div>
+    <input disabled [ngModel]="userBalance?.toFixed(2)" type="number" class="form-control bg-dark text-warning"
+           aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+  </div>
+  <label>Recipient's username</label>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text bg-black text-white" id="basic-addon1">@</span>
+    </div>
+    <input [(ngModel)]="recipientUserName" type="text" class="form-control bg-dark text-white"
+           placeholder="username"
+           aria-label="Username"
+           aria-describedby="basic-addon1">
+  </div>
+  <label>Amount</label>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text bg-black text-white" id="basic-addon">$</span>
+    </div>
+    <input [(ngModel)]="sendAmount" type="number" min="1"
+           class="form-control bg-dark text-white fw-bolder" placeholder="120.00"
+           aria-label="Recipient's username"
+           aria-describedby="basic-addon2">
+  </div>
+  <button class="btn btn-success"
+          [class.disabled]="isValid()" data-bs-toggle="modal"
+          data-bs-target="#sendMoney"
+          (click)="requestCode()">Confirm
+  </button>
+</div>
+
+<div class="modal fade" id="sendMoney" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="stBackdropLabel">Send Money verification</h5>
+        <button type="button" class="btn-close text-white bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <br>
+        <div class="alert alert-warning">
+          Please enter the code that we sent you via your email
+        </div>
+        <br>
+        <label>Code:</label>
+        <div class="input-group mb-3">
+          <input [(ngModel)]="code" type="text" class="form-control bg-dark text-white"
+                 aria-label="Username"
+                 aria-describedby="basic-addon1">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button *ngIf="!isSent" type="button" class="btn btn-warning" [class.disabled]="code?.length! !== 6" (click)="sendMoney()">
+          Send
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

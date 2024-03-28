@@ -1,0 +1,72 @@
+<div class="table-responsive">
+
+  <h5>Deposits History</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Method</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Status</th>
+      <th scope="col">Feedback</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let d of deposits.items">
+      <tr>
+        <td>{{d.id}}</td>
+        <td>{{d.created | date :'dd/MM/yyyy, h:mm a '}}</td>
+        <td>{{d.depositMethod!}}</td>
+        <td class="fw-bolder" [class.text-danger]="d.amount! <0"
+            [class.text-success]="d.amount! >0">{{d.amount}}</td>
+        <td class="fw-bolder">
+          <div class="text-center" [className]="getStatusBg(d.status!)">
+            <p class="text-center">{{d.status}}</p>
+          </div>
+        </td>
+        <td class="text-warning">{{d.adminFeedBack}}</td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="deposits?.items?.length! === 0" class="text-muted text-center">
+      <td colspan="9">
+        No deposits found
+      </td>
+
+    </tr>
+
+    </tbody>
+    <caption>Total Deposits : {{deposits?.totalCount}}</caption>
+  </table>
+</div>
+
+<nav aria-label="Page navigation example" class=" pb-5 border-0">
+  <ul class="pagination border-0 justify-content-center ">
+
+    <li class="page-item bg-dark" [class.disabled]="!deposits?.hasPreviousPage">
+      <a class="page-link bg-dark border-0" tabindex="-1" aria-disabled="true" [routerLink]=[]
+         [queryParams]="{page:deposits.pageIndex-1!}"> <i class="bi bi-chevron-left"></i> Previous</a>
+    </li>
+
+    <li class="page-item " routerLinkActive="active" *ngIf="deposits.hasPreviousPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:deposits.pageIndex -1}"
+         class="page-link bg-dark border-0">{{deposits.pageIndex - 1}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active">
+      <a [routerLink]=[]
+         [queryParams]="{page:deposits.pageIndex}"
+         class="page-link bg-dark border-0">{{deposits.pageIndex}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active" *ngIf="deposits.hasNextPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:deposits.pageIndex+1}"
+         class="page-link bg-dark border-0">{{deposits.pageIndex + 1}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="!deposits.hasNextPage">
+      <a class="page-link bg-dark border-0" [routerLink]=[] [queryParams]="{page:deposits.pageIndex+1}">Next <i
+        class="bi bi-chevron-right"></i></a>
+    </li>
+  </ul>
+</nav>

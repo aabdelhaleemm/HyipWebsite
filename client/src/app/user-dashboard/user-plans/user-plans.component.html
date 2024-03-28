@@ -1,0 +1,223 @@
+
+
+    <div class="row">
+
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-cash-coin"></i>
+            <div class="price-value"> {{plansCard[6].total!}}<span class="month">Of the total profit </span></div>
+          </div>
+          <h3 class="heading">{{plansCard[6].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[6].return!}}</b></li>
+              <li>Duration <b>{{plansCard[6].duration!}}</b></li>
+              <li>Total <b>{{plansCard[6].totalDisplay!}} + Capital</b></li>
+              <li><b>${{plansCard[6].min!}} - No limit</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button data-bs-toggle="modal"
+                    data-bs-target="#startNewInvestment"
+                    (click)="handleStartNewInvestment(plansCard[6].name!,plansCard[6].max!,plansCard[6].min!,plansCard[6].displayName!)">
+              Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-cash"></i>
+            <div class="price-value"> {{plansCard[0].total!}}<span class="month">Total profit </span></div>
+          </div>
+          <h3 class="heading">{{plansCard[0].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[0].return!}}</b></li>
+              <li>Duration <b>{{plansCard[0].duration!}}</b></li>
+              <li>Total <b>{{plansCard[0].totalDisplay!}} + Capital</b></li>
+              <li><b>${{plansCard[0].min!}} - ${{plansCard[0].max!}}</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button data-bs-toggle="modal"
+                    data-bs-target="#startNewInvestment"
+                    (click)="handleStartNewInvestment(plansCard[0].name!,plansCard[0].max!,plansCard[0].min!,plansCard[0].displayName!)">
+              Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-wallet"></i>
+            <div class="price-value"> {{plansCard[1].total!}} <span class="month">Total profit </span></div>
+          </div>
+          <h3 class="heading">{{plansCard[1].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[1].return!}}</b></li>
+              <li>Duration <b>{{plansCard[1].duration!}}</b></li>
+              <li>Total <b>{{plansCard[1].totalDisplay!}} + Capital</b></li>
+              <li><b> ${{plansCard[1].min!}} - ${{plansCard[1].max!}}</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button data-bs-toggle="modal"
+                    data-bs-target="#startNewInvestment"
+                    (click)="handleStartNewInvestment(plansCard[1].name!,plansCard[1].max!,plansCard[1].min!,plansCard[1].displayName!)">
+              Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-piggy-bank-fill"></i>
+            <div class="price-value"> {{plansCard[2].total!}} <span class="month">Total profit</span></div>
+          </div>
+          <h3 class="heading">{{plansCard[2].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[2].return!}}</b></li>
+              <li>Duration <b>{{plansCard[2].duration!}}</b></li>
+              <li>Total <b>{{plansCard[2].totalDisplay!}} + Capital</b></li>
+              <li><b> ${{plansCard[2].min!}} - ${{plansCard[2].max!}}</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button data-bs-toggle="modal"
+                    data-bs-target="#startNewInvestment"
+                    (click)="handleStartNewInvestment(plansCard[2].name!,plansCard[2].max!,plansCard[2].min!,plansCard[2].displayName!)">
+              Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-briefcase-fill"></i>
+            <div class="price-value">{{plansCard[3].total!}} <span class="month">Total profit</span></div>
+          </div>
+          <h3 class="heading">{{plansCard[3].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[3].return!}}</b></li>
+              <li>Duration <b>{{plansCard[3].duration!}}</b></li>
+              <li>Total <b>{{plansCard[3].totalDisplay!}} + Capital</b></li>
+              <li><b> ${{plansCard[3].min!}} - ${{plansCard[3].max!}}</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button data-bs-toggle="modal"
+                    data-bs-target="#startNewInvestment"
+                    (click)="handleStartNewInvestment(plansCard[3].name!,plansCard[3].max!,plansCard[3].min!,plansCard[3].displayName!)">
+              Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-cash-stack"></i>
+            <div class="price-value"> {{plansCard[4].total!}} <span class="month">Total profit</span></div>
+          </div>
+          <h3 class="heading">{{plansCard[4].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[4].return!}}</b></li>
+              <li>Duration <b>{{plansCard[4].duration!}}</b></li>
+              <li>Total <b>{{plansCard[4].totalDisplay!}} + Capital</b></li>
+              <li><b> ${{plansCard[4].min!}} - ${{plansCard[4].max!}}</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button
+              data-bs-toggle="modal"
+              data-bs-target="#startNewInvestment"
+              (click)="handleStartNewInvestment(plansCard[4].name!,plansCard[4].max!,plansCard[4].min!,plansCard[4].displayName!)">
+              Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+        <div class="pricingTable blue">
+          <div class="pricingTable-header">
+            <i class="bi bi-bank2"></i>
+            <div class="price-value"> {{plansCard[5].total!}} <span class="month">Total profit</span></div>
+          </div>
+          <h3 class="heading">{{plansCard[5].displayName}}</h3>
+          <div class="pricing-content">
+            <ul>
+              <li>Return <b>{{plansCard[5].return!}}</b></li>
+              <li>Duration <b>{{plansCard[5].duration!}}</b></li>
+              <li>Total <b>{{plansCard[5].totalDisplay!}} + Capital</b></li>
+              <li><b> ${{plansCard[5].min!}} - No limit</b></li>
+            </ul>
+          </div>
+          <div class="pricingTable-signup">
+            <button data-bs-toggle="modal"
+                    data-bs-target="#startNewInvestment"
+                    (click)="handleStartNewInvestment(plansCard[5].name!,plansCard[5].max!,plansCard[5].min!,plansCard[5].displayName!)"
+            >Start Now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<div class="modal fade" id="startNewInvestment" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="stBackdropLabel">Start new <span class="text-primary">{{displayName}}</span>
+          investment</h5>
+        <button type="button" class="btn-close text-white bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <label class="text-start text-white-50">Balance</label>
+        <div class="input-group mb-3 bg-dark text-white">
+          <span class="input-group-text bg-black text-white" id="basic-addon3">$</span>
+          <input [ngModel]="userBalance?.toFixed(2)" disabled type="text" class="form-control bg-dark text-warning" id="basic-url"
+                 aria-describedby="basic-addon3">
+        </div>
+        <label class="text-start text-white-50">Investment Amount</label>
+        <div class="input-group mb-3 bg-dark text-white">
+          <span class="input-group-text bg-black text-white" id="basic-addon2">$</span>
+          <input *ngIf="max !== 0" placeholder="450.00" [min]="min!" [max]="userBalance! >= max! ? max!:userBalance!"
+                 [(ngModel)]="investmentAmount"
+                 type="number"
+                 class="form-control bg-dark text-warning"
+                 id="basic-url1"
+                 aria-describedby="basic-addon3">
+          <input *ngIf="max === 0" placeholder="450.00" [min]="min!" [max]="userBalance" [(ngModel)]="investmentAmount"
+                 type="number"
+                 class="form-control bg-dark text-warning"
+                 id="basi-url"
+                 aria-describedby="basic-addon3">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success" *ngIf="max !==0"
+                  (click)="addInvestment()"
+                  [class.disabled]="investmentAmount < min! || investmentAmount > max! || investmentAmount > userBalance">
+            Confirm
+          </button>
+          <button type="button" class="btn btn-success" *ngIf="max ===0"
+                  [class.disabled]="investmentAmount < min! || investmentAmount > userBalance"
+                  (click)="addInvestment()"> Confirm
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

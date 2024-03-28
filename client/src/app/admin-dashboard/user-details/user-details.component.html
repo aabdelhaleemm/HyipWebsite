@@ -1,0 +1,148 @@
+<div class="col-12 col-lg-4 col-md-9">
+
+  <div class="input-group mb-3 ">
+    <span class="input-group-text bg-black text-white" id="addon-wrapping">@</span>
+    <input [(ngModel)]="userName" type="text" class="form-control bg-dark text-white" placeholder="User Name"
+           aria-label="Recipient's username" aria-describedby="button-addon2">
+    <button class="btn btn-outline-secondary" type="submit" id="button-addon2" (click)="search()"
+            [class.disabled]="userName?.length! < 1 ">Search <i
+      class="bi bi-search"></i></button>
+  </div>
+</div>
+
+<br/>
+<div class="table-responsive">
+
+  <h5>User Wallet Status</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Balance</th>
+      <th scope="col">Total Deposit</th>
+      <th scope="col">Total Withdraw</th>
+      <th scope="col"> Total Profit</th>
+      <th scope="col"> Total Investments</th>
+      <th scope="col">Total Referrals Earning</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="user?.wallet">
+      <td class="fw-bolder ">${{user?.wallet?.balance}}</td>
+      <td class="fw-bolder ">${{user?.wallet?.totalDeposit}}</td>
+      <td class="fw-bolder ">${{user?.wallet?.totalWithdraw}}</td>
+      <td class="fw-bolder ">${{user?.wallet?.totalProfit}}</td>
+      <td class="fw-bolder ">${{user?.wallet?.totalInvest}}</td>
+      <td class="fw-bolder ">${{user?.wallet?.totalReferralsEarning}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <br/>
+  <br/>
+</div>
+
+
+<div class="table-responsive">
+
+  <h5>User Info</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Register Date</th>
+      <th scope="col">User Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">ReferenceId</th>
+      <th scope="col">Edit</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngIf="user?.wallet">
+
+      <td class="fw-bolder ">{{user?.id}}</td>
+      <td class="fw-bolder ">{{user?.wallet?.created | date :'mediumDate' }}</td>
+      <td class="fw-bolder ">{{user?.userName}}</td>
+      <td class="fw-bolder ">{{user?.email}}</td>
+      <td class="fw-bolder ">{{user?.referenceId}}</td>
+      <td class="text-center">
+        <i class="bi bi-pencil-square  btn-outline-secondary m-1 p-1" style="cursor: pointer;font-size: 1.2rem"
+           data-bs-toggle="modal"
+           data-bs-target="#editUser"
+           title="Edit"
+        ></i>
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+
+  <br/>
+  <br/>
+</div>
+
+
+<div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="stBackdropLabel">Edit user Info </h5>
+        <button type="button" class="btn-close text-white bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body text-center">
+
+        <br/>
+        <br/>
+        <form [formGroup]="userInfoForm">
+          <div class="input-group mb-3">
+            <span class="input-group-text bg-black text-white" id="basic-addon1">@</span>
+            <input formControlName="username" type="text" class="form-control bg-dark text-white"
+                   placeholder="Username"
+                   aria-label="Username"
+                   aria-describedby="basic-addon1">
+            <span class="input-group-text bg-black text-white">ID</span>
+            <input formControlName="id" type="text" class="form-control bg-dark text-white" placeholder="Id"
+                   aria-label="Server">
+          </div>
+
+          <div class="input-group mb-3">
+
+            <input formControlName="email" type="text" class="form-control bg-dark text-white "
+                   placeholder="user@user.com"
+                   aria-label="Recipient's username"
+                   aria-describedby="basic-addon2">
+          </div>
+
+          <div class="input-group mb-3">
+
+            <input formControlName="password" type="password" class="form-control bg-dark text-white"
+                   placeholder="Password"
+                   aria-label="Username">
+          </div>
+          <div class="input-group mb-3">
+            <input formControlName="confirmPassword" type="password" class="form-control bg-dark text-white"
+                   placeholder="Confirm Password"
+                   aria-label="Username">
+          </div>
+          <div
+            *ngIf="checkPass()"
+            class="alert alert-danger">
+            Password does not match
+          </div>
+
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger"
+                [class.disabled]="userInfoForm.invalid || checkPass() || !userInfoForm.dirty || isPasswordChanges()"
+                (click)="updateUser()">Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

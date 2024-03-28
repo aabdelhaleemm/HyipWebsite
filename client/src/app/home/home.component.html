@@ -1,0 +1,367 @@
+<br/>
+<br/>
+<div class="container text-center">
+  <div class="text-white text-center m-lg-5 m-1">
+    <h4 class="fw-bold">Minds Trade</h4>
+    <h1 class="fw-bold">Our mission is to make you get reliable profit</h1>
+    <br/>
+    <div>
+      <a href="#aboutUs" class="btn btn-outline-primary m-2 fw-bold">About us?</a>
+      <button class="btn btn-primary m-2 fw-bold" routerLink="register" *ngIf="!authService.isLoggedIn()">Open account
+      </button>
+      <button class="btn btn-primary m-2 fw-bold" routerLink="dashboard"
+              *ngIf="authService.isLoggedIn() && !authService.isAdmin() && !authService.isAdmin2()">Dashboard
+      </button>
+      <button class="btn btn-primary m-2 fw-bold" routerLink="admin/overview"
+              *ngIf="authService.isAdmin() && authService.isAdmin2()">Dashboard
+      </button>
+    </div>
+    <br/>
+    <br/>
+    <img class="img-fluid w-50 d-inline "
+         [class.w-75]="screenWidth <= 1000 && screenWidth >575"
+         [class.w-100]="screenWidth <= 575"
+         src="assets/images/h1.svg" alt="image">
+
+  </div>
+</div>
+<br>
+<br>
+<br>
+
+<section id="aboutUs" class="p-5 text-light bg-dark">
+  <div class="container text-start ">
+    <div class="row align-items-start justify-content-between">
+      <div class="col-md p-2 p-lg-5 m-lg-5">
+        <h2>
+          About Us
+        </h2>
+        <p class="lead">
+          Minds Trade
+        </p>
+        <p>
+          We are a financial investment company working in the field of investment in the financial markets
+          In the field of digital currency trading
+          We operate on the basis of a unique Islamic investment, which guarantees an Islamic account and trading within
+          Islamic conditions
+          The goal is to increase an individual's income with a reliable source of risk
+          We will do everything we can to provide the best service to everyone
+          We look forward to you being a part of our community
+        </p>
+        <a routerLink="contact" class="btn btn-light mt-3">
+          <i class="bi bi-chevron-left"></i>Contact Us
+        </a>
+      </div>
+      <div class="col-md">
+        <!--          src="http://www.sadeamgroup.com/images/contactus.svg"-->
+        <img src="assets/images/undraw_team_page_re_cffb.svg" class="img-fluid" alt=""/>
+      </div>
+    </div>
+  </div>
+</section>
+<br>
+<br>
+<br>
+<div class="container text-center">
+
+
+  <h1 class="text-secondary">Our investment plans</h1>
+
+  <div class="row" id="investmentPlans">
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-cash-coin"></i>
+          <div class="price-value"> {{plansCard[6].total!}}<span class="month">Of the total profit </span></div>
+        </div>
+        <h3 class="heading">{{plansCard[6].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[6].return!}}</b></li>
+            <li>Duration <b>{{plansCard[6].duration!}}</b></li>
+            <li>Total <b>{{plansCard[6].totalDisplay!}} + Capital</b></li>
+            <li><b>${{plansCard[6].min!}} - No limit</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button data-bs-toggle="modal"
+                  data-bs-target="#startNewInvestment"
+                  routerLink="/dashboard/investment/plans">
+            Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-cash"></i>
+          <div class="price-value"> {{plansCard[0].total!}}<span class="month">Total profit </span></div>
+        </div>
+        <h3 class="heading">{{plansCard[0].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[0].return!}}</b></li>
+            <li>Duration <b>{{plansCard[0].duration!}}</b></li>
+            <li>Total <b>{{plansCard[0].totalDisplay!}} + Capital</b></li>
+            <li><b>${{plansCard[0].min!}} - ${{plansCard[0].max!}}</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button data-bs-toggle="modal"
+                  data-bs-target="#startNewInvestment"
+                  routerLink="/dashboard/investment/plans"
+          >
+            Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-wallet"></i>
+          <div class="price-value"> {{plansCard[1].total!}} <span class="month">Total profit </span></div>
+        </div>
+        <h3 class="heading">{{plansCard[1].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[1].return!}}</b></li>
+            <li>Duration <b>{{plansCard[1].duration!}}</b></li>
+            <li>Total <b>{{plansCard[1].totalDisplay!}} + Capital</b></li>
+            <li><b> ${{plansCard[1].min!}} - ${{plansCard[1].max!}}</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button data-bs-toggle="modal"
+                  data-bs-target="#startNewInvestment"
+                  routerLink="/dashboard/investment/plans"
+          >
+            Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-piggy-bank-fill"></i>
+          <div class="price-value"> {{plansCard[2].total!}} <span class="month">Total profit</span></div>
+        </div>
+        <h3 class="heading">{{plansCard[2].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[2].return!}}</b></li>
+            <li>Duration <b>{{plansCard[2].duration!}}</b></li>
+            <li>Total <b>{{plansCard[2].totalDisplay!}} + Capital</b></li>
+            <li><b> ${{plansCard[2].min!}} - ${{plansCard[2].max!}}</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button data-bs-toggle="modal"
+                  data-bs-target="#startNewInvestment"
+                  routerLink="/dashboard/investment/plans"
+          >
+            Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-briefcase-fill"></i>
+          <div class="price-value">{{plansCard[3].total!}} <span class="month">Total profit</span></div>
+        </div>
+        <h3 class="heading">{{plansCard[3].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[3].return!}}</b></li>
+            <li>Duration <b>{{plansCard[3].duration!}}</b></li>
+            <li>Total <b>{{plansCard[3].totalDisplay!}} + Capital</b></li>
+            <li><b> ${{plansCard[3].min!}} - ${{plansCard[3].max!}}</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button data-bs-toggle="modal"
+                  data-bs-target="#startNewInvestment"
+                  routerLink="/dashboard/investment/plans">
+
+            Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-cash-stack"></i>
+          <div class="price-value"> {{plansCard[4].total!}} <span class="month">Total profit</span></div>
+        </div>
+        <h3 class="heading">{{plansCard[4].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[4].return!}}</b></li>
+            <li>Duration <b>{{plansCard[4].duration!}}</b></li>
+            <li>Total <b>{{plansCard[4].totalDisplay!}} + Capital</b></li>
+            <li><b> ${{plansCard[4].min!}} - ${{plansCard[4].max!}}</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button
+            data-bs-toggle="modal"
+            data-bs-target="#startNewInvestment"
+            routerLink="/dashboard/investment/plans"
+          >
+            Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 p-4">
+      <div class="pricingTable blue">
+        <div class="pricingTable-header">
+          <i class="bi bi-bank2"></i>
+          <div class="price-value"> {{plansCard[5].total!}} <span class="month">Total profit</span></div>
+        </div>
+        <h3 class="heading">{{plansCard[5].displayName}}</h3>
+        <div class="pricing-content">
+          <ul>
+            <li>Return <b>{{plansCard[5].return!}}</b></li>
+            <li>Duration <b>{{plansCard[5].duration!}}</b></li>
+            <li>Total <b>{{plansCard[5].totalDisplay!}} + Capital</b></li>
+            <li><b> ${{plansCard[5].min!}} - No limit</b></li>
+          </ul>
+        </div>
+        <div class="pricingTable-signup">
+          <button data-bs-toggle="modal"
+                  data-bs-target="#startNewInvestment"
+                  routerLink="/dashboard/investment/plans"
+          >Start Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+  <br>
+
+  <h1 class="text-secondary">Frequently Asked Questions</h1>
+  <br>
+  <br>
+  <div class="accordion bg-dark text-white text-center" id="faqs">
+    <div class="accordion-item text-center bg-dark">
+      <h2 class="accordion-header text-center" id="headingOne">
+        <button class="accordion-button  bg-black text-white text-center" type="button" data-bs-toggle="collapse"
+                data-bs-target="#collapseOne"
+                aria-expanded="true" aria-controls="collapseOne">
+          How can I make a deposit ?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>you can make a deposit by :<br>
+            (PerfectMoney, USDT - TRC-20, USDT - ERC-20 , or you can contact us on telegram)</strong>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item text-center bg-dark">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed bg-black text-white text-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                aria-expanded="false" aria-controls="collapseTwo">
+          how can I transfer money from my account to another account ?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>1- You will go to transfer<br>
+            2- Then you will enter the user username that you would transfer to<br>
+            3- Enter the amount<br>
+            4- You will get confirmation code on your email enter the code and complete the transfer<br>
+            5- If any thing goes wrong contact us on telegram</strong>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item text-center bg-dark">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed bg-black text-white text-center" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+          What is the referral user and how can i get it ?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>In your dashboard you have a link get the link and share it with your friends, and once they deposit
+            and start investment in any plan you will get certain percentage</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item text-center bg-dark">
+      <h2 class="accordion-header" id="headingFour">
+        <button class="accordion-button collapsed bg-black text-white text-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                aria-expanded="false" aria-controls="collapseTwo">
+          When can I withdraw my weekly profit ?
+        </button>
+      </h2>
+      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>You can withdraw your weekly profits after they are deposited in your wallet. The withdrawal is
+            approved within a maximum duration of 48 hours.</strong>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item text-center bg-dark">
+      <h2 class="accordion-header" id="headingFive">
+        <button class="accordion-button collapsed bg-black text-white text-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseFive"
+                aria-expanded="false" aria-controls="collapseTwo">
+          How can I withdraw profits after they are deposited in my wallet ?
+        </button>
+      </h2>
+      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>You can withdraw your profits from the site by requesting a withdrawal from the site directly and
+            placing your wallet address on any wallet you have available from these wallets (USDT-ERC-20,
+            USDT-TRC-20, Perfect Money), and the withdrawal amount will reach the maximum time -48 hours</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item text-center bg-dark">
+      <h2 class="accordion-header" id="headingSix">
+        <button class="accordion-button collapsed bg-black text-white text-center" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapseSix"
+                aria-expanded="false" aria-controls="collapseTwo">
+          You don't have one of these wallets (USDT-ERC20, USDT-TRC20, Perfect Money)?
+        </button>
+      </h2>
+      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+           data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+          <strong>You can contact technical support directly ( @MindsTradeSupport ) and you will be answered as soon as
+            possible and your
+            problem will be solved</strong>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <br>
+
+
+</div>
+
+

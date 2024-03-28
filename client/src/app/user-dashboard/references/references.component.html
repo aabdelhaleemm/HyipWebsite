@@ -1,0 +1,64 @@
+<div class="input-group mb-3">
+  <span class="input-group-text bg-black text-white" id="basic-addon">Your Link:</span>
+  <input [value]="referenceLink" type="text" class="form-control bg-dark text-white fw-bolder"
+         placeholder="Reference Link"
+         disabled>
+  <span (click)="copyToClipboard()" ngxClipboard [cbContent]="referenceLink"
+        class="input-group-text bg-black text-white" style="cursor: pointer"
+        id="basic-addon2"><i class="bi bi-clipboard-check" title="Copy"></i></span>
+</div>
+
+<div class="table-responsive">
+  <h5>Referral users</h5>
+  <table class="table table-dark table-striped  table-bordered caption-top ">
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">User Name</th>
+      <th scope="col">Joined At</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let w of userReferences?.referenceUsers">
+      <tr>
+        <td>{{w.userName}}</td>
+        <td>{{w.created | date :'mediumDate'}}</td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="userReferences?.referenceUsers?.length === 0" class="text-muted text-center">
+      <td colspan="2">
+        No users found
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+<br>
+<div class="table-responsive">
+  <h5>Referral Profit</h5>
+  <table class="table table-dark table-striped  table-bordered caption-top ">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let t of userReferences?.transactions">
+      <tr>
+        <td>{{t.id}}</td>
+        <td>{{t.created | date :'mediumDate'}}</td>
+        <td class="text-success fw-bolder">{{t.amount}}</td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="userReferences?.transactions?.length === 0" class="text-muted text-center">
+      <td colspan="3">
+        No profit found
+      </td>
+    </tr>
+
+    </tbody>
+  </table>
+</div>

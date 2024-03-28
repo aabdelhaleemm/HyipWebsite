@@ -1,0 +1,12 @@
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" [(ngModel)]="state!.isDepositActive">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Deposits</label>
+</div>
+<br/>
+<br/>
+<div class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwigtchCheckDefault" [(ngModel)]="state!.isWithdrawActive">
+  <label class="form-check-label" for="flexSwitchCheckDefault">Withdraws</label>
+</div>
+<br/>
+<button class="btn btn-outline-danger" (click)="save()">Save</button>

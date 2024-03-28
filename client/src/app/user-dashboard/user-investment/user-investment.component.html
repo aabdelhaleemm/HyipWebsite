@@ -1,0 +1,166 @@
+<div class="table-responsive">
+  <button class="btn btn-outline-primary" routerLink="plans">Start New Investment</button>
+  <br/>
+  <br/>
+  <h5>Investments</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Start Date</th>
+      <th scope="col">End Date</th>
+      <th scope="col">Plan</th>
+
+      <th scope="col">Amount</th>
+      <th scope="col">Total Profit</th>
+      <th scope="col">Next Profit in</th>
+      <th scope="col">Status</th>
+      <th scope="col">Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let i of investment?.items">
+      <tr>
+        <td>{{i.id}}</td>
+        <td>{{i.startDate | date :'mediumDate'}}</td>
+        <td>{{i.endDate | date :'mediumDate'}}</td>
+        <td class="fw-bolder ">{{i.plan}}</td>
+        <td class="fw-bolder text-success">{{i.amount}}</td>
+        <td class="fw-bolder text-success">{{i.totalProfit?.toFixed(2)}}</td>
+        <td *ngIf="i.nextProfitEarningDate === null">-</td>
+        <td *ngIf="i.nextProfitEarningDate !== null">{{timeDiffCalc(i.nextProfitEarningDate!)}}
+          <div class="progress">
+            <div class="progress-bar  progress-bar-striped progress-bar-animated" role="progressbar"
+                 [attr.aria-valuenow]="i.percent"
+                 aria-valuemin="0" aria-valuemax="100"
+                 [style.width]="i.percent+'%'">{{i.percent}}%
+            </div>
+          </div>
+        </td>
+        <td class="fw-bolder">
+          <div class="text-center" [className]="getStatusBg(i.status!)">
+            <p class="text-center ">{{i.status}}</p>
+          </div>
+        </td>
+        <td class="text-center">
+          <i class="bi bi-info-lg fw-bolder btn btn-secondary" data-bs-toggle="modal"
+             data-bs-target="#investmentDetails" (click)="getDetails(i.id)" title="Details"> </i>
+        </td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="investment?.items?.length! === 0" class="text-muted text-center">
+      <td colspan="9">
+        No investments found
+      </td>
+    </tr>
+
+    </tbody>
+    <caption>Total investments : {{investment?.totalCount}}</caption>
+  </table>
+
+
+</div>
+
+
+<div class="modal fade" id="investmentDetails" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Investment Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Investment Transactions</h5>
+        <div class="table-responsive">
+          <table class="table table-dark  table-striped table-bordered ">
+            <thead class="table-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Type</th>
+              <th scope="col">Amount</th>
+              <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let t of investmentDetails?.transactions">
+              <tr>
+                <td>{{t.id}}</td>
+                <td>{{t.created | date :'dd/MM/yyyy'  }}</td>
+                <td>{{getNewStatusName(t.type!)}}</td>
+                <td class="fw-bold" [class.text-danger]="t.amount! <0"
+                    [class.text-success]="t.amount! >0">{{t.amount! > 0 ? '+' : ''}}{{t.amount?.toFixed(2)}}</td>
+                <td class="fw-bolder">
+                  <div class="text-center" [className]="getStatusBgClass(t.status!)">
+                    <p class="text-center">{{t.status}}</p>
+                  </div>
+
+                </td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+        <h5>Investment Profits</h5>
+        <div class="table-responsive">
+          <table class="table table-dark  table-striped table-bordered ">
+            <thead class="table-dark">
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Date</th>
+              <th scope="col">Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container *ngFor="let t of investmentDetails?.investmentsProfits">
+              <tr>
+                <td>{{t.id}}</td>
+                <td>{{t.created | date :'dd/MM/yyyy'  }}</td>
+                <td class="fw-bold" [class.text-danger]="t.amount! <0"
+                    [class.text-success]="t.amount! >0">{{t.amount! > 0 ? '+' : ''}}{{t.amount}}</td>
+              </tr>
+            </ng-container>
+            </tbody>
+          </table>
+        </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<nav aria-label="Page navigation example" class=" pb-5 border-0">
+  <ul class="pagination border-0 justify-content-center ">
+
+    <li class="page-item bg-dark" [class.disabled]="!investment?.hasPreviousPage">
+      <a class="page-link bg-dark border-0" tabindex="-1" aria-disabled="true" [routerLink]=[]
+         [queryParams]="{page:investment.pageIndex-1!}"> <i class="bi bi-chevron-left"></i> Previous</a>
+    </li>
+
+    <li class="page-item " routerLinkActive="active" *ngIf="investment.hasPreviousPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:investment.pageIndex -1}"
+         class="page-link bg-dark border-0">{{investment.pageIndex - 1}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active">
+      <a [routerLink]=[]
+         [queryParams]="{page:investment.pageIndex}"
+         class="page-link bg-dark border-0">{{investment.pageIndex}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active" *ngIf="investment.hasNextPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:investment.pageIndex+1}"
+         class="page-link bg-dark border-0">{{investment.pageIndex + 1}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="!investment.hasNextPage">
+      <a class="page-link bg-dark border-0" [routerLink]=[] [queryParams]="{page:investment.pageIndex+1}">Next <i
+        class="bi bi-chevron-right"></i></a>
+    </li>
+  </ul>
+</nav>

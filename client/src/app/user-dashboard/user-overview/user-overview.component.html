@@ -1,0 +1,104 @@
+<div class="row row-cols-1 row-cols-md-3 g-4 ">
+  <div class="col-lg-4 col-md-6">
+    <div class="card h-100 " style="background-color: #282F34">
+      <div class="card-body">
+        <h4 class="card-title ">Balance <i class="bi bi-wallet float-end" style="font-size: 28px"></i></h4>
+        <hr/>
+        <h5 class="card-text fw-bolder text-warning">
+          <b>${{overview?.wallet?.balance?.toFixed(2)}}</b>
+        </h5>
+      </div>
+    </div>
+  </div>
+  <div class="col col-lg-4 col-md-6">
+    <div class="card h-100 bg-black">
+      <div class="card-body">
+        <h4 class="card-title">Total Deposit <i class="bi bi-box-arrow-in-down float-end" style="font-size: 28px"></i>
+        </h4>
+        <hr/>
+        <h5 class="card-text fw-bolder text-warning ">${{overview?.wallet?.totalDeposit?.toFixed(2)}}</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col col-lg-4 col-md-6">
+    <div class="card h-100 " style="background-color: #282F34">
+      <div class="card-body">
+        <h4 class="card-title">Total Withdraw <i class="bi bi-box-arrow-down float-end" style="font-size: 28px"></i>
+        </h4>
+        <hr/>
+        <h5 class="card-text fw-bolder text-warning">${{overview?.wallet?.totalWithdraw?.toFixed(2)}}</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col col-lg-4 col-md-6">
+    <div class="card h-100 bg-black">
+      <div class="card-body">
+        <h4 class="card-title">Total Invest Profit <i class="bi bi-cash-coin float-end" style="font-size: 28px"></i>
+        </h4>
+        <hr/>
+        <h5 class="card-text fw-bolder text-warning">${{overview?.wallet?.totalProfit?.toFixed(2)}}</h5>
+      </div>
+    </div>
+  </div>
+
+  <div class="col col-lg-4 col-md-6">
+    <div class="card h-100 " style="background-color: #282F34">
+      <div class="card-body">
+        <h4 class="card-title">Total Investment <i class="bi bi-cash-stack float-end" style="font-size: 28px"></i></h4>
+        <hr/>
+        <h5 class="card-text fw-bolder text-warning">${{overview?.wallet?.totalInvest?.toFixed(2)}}</h5>
+      </div>
+    </div>
+  </div>
+  <div class="col col-lg-4 col-md-6">
+    <div class="card h-100 bg-black ">
+      <div class="card-body">
+        <h4 class="card-title">Total Reference <i class="bi bi-people float-end" style="font-size: 28px"></i></h4>
+        <hr/>
+        <h5 class="card-text fw-bolder text-warning">${{overview?.wallet?.totalReferralsEarning?.toFixed(2)}}</h5>
+      </div>
+    </div>
+  </div>
+</div>
+<br/>
+<br/>
+<br/>
+<div class="table-responsive">
+  <table class="table table-dark  table-bordered caption-top table-responsive">
+    <caption class="text-white fw-bold">Latest transactions</caption>
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Type</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Status</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let t of overview?.transactions">
+      <tr>
+        <td>{{t.id}}</td>
+        <td>{{t.created | date :'dd/MM/yyyy, h:mm a '  }}</td>
+        <td>{{getNewStatusName(t.type!)}}</td>
+        <td class="fw-bold" [class.text-danger]="t.amount! <0"
+            [class.text-success]="t.amount! >0">{{t.amount! > 0 ? '+' : ''}}{{t.amount?.toFixed(2)}}</td>
+        <td class="fw-bolder">
+          <div class="text-center" [className]="getStatusBgClass(t.status!)">
+            <p class="text-center">{{t.status}}</p>
+          </div>
+
+        </td>
+      </tr>
+
+    </ng-container>
+    <tr *ngIf="overview?.transactions?.length! === 0" class="text-muted text-center">
+      <td colspan="5">
+        No transactions found
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+</div>
+

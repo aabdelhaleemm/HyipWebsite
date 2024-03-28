@@ -1,0 +1,137 @@
+<div class="col-12 col-lg-2 col-md-6">
+  <label for="selec">Status: </label>
+  <select class="form-select bg-dark text-white" id="selec" aria-label="Default select example"
+          (change)="changeStatus()" [(ngModel)]="status">
+    <option value="All">All</option>
+    <option value="Pending" class="text-secondary">Pending</option>
+    <option value="Accepted" class="text-success">Accepted</option>
+    <option value="Rejected" class="text-danger">Rejected</option>
+  </select>
+
+</div>
+
+<br/>
+<div class="table-responsive">
+
+  <h5>Withdraws List</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">Withdraw Method</th>
+      <th scope="col">Withdraw Account</th>
+      <th scope="col">UserName</th>
+      <th scope="col">User Balance</th>
+      <th scope="col">Status</th>
+      <th scope="col">Modified By</th>
+      <th scope="col">Change</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let w of withdrawList?.items">
+      <tr>
+        <td>{{w.id}}</td>
+        <td>{{w.created | date :'dd/MM/yyyy, h:mm a'}}</td>
+        <td class="fw-bolder text-warning">{{w.amount}}</td>
+        <td class="fw-bolder">{{w.withdrawMethod}}</td>
+        <td style="word-break: break-word;" class="fw-bolder">{{w.withdrawAccount}}</td>
+        <td class="fw-bolder">{{w.userName}}</td>
+        <td class="fw-bolder">{{w.userBalance?.toFixed(2)}}</td>
+        <td class="fw-bolder">
+          <div class="text-center" [className]="getStatusBg(w.status!)">
+            <p class="text-center ">{{w.status}}</p>
+          </div>
+        </td>
+        <td class="fw-bolder">{{w.lastModifiedBy}}</td>
+        <td class="text-center">
+          <i class="bi bi-pencil-square  btn-outline-secondary m-1 p-1" style="cursor: pointer;font-size: 1.2rem"
+             data-bs-toggle="modal"
+             data-bs-target="#editWithdraw"
+             title="Edit"
+             (click)="handleEditWithdrawClick(w.id!,w.status!)"></i>
+        </td>
+      </tr>
+    </ng-container>
+
+    </tbody>
+    <caption>Total Withdraws : {{withdrawList?.totalCount}}</caption>
+  </table>
+</div>
+
+<div class="modal fade" id="editWithdraw" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"> Change Withdraw Status</h5>
+        <button type="button" class="btn-close bg-secondary text-white" data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <div class="alert ">
+          <p>Current Withdraw status : <span [className]="getStatusBg(currentStatus)">{{currentStatus}}</span></p>
+        </div>
+
+        <label for="cancelStatus">New Status : </label>
+        <select [(ngModel)]="newStatus" class="form-select bg-dark text-white"
+                [ngClass]="{'text-success': newStatus ==='Accepted','text-secondary':newStatus ==='Pending','text-danger':newStatus==='Rejected'}"
+                id="cancelStatus" aria-label="Default select example">
+          <option value="Select" disabled selected>Select</option>
+          <option value="Accepted" class="text-success ">Accepted</option>
+          <option value="Pending" class="text-secondary">Pending</option>
+          <option value="Rejected" class="text-danger">Rejected</option>
+        </select>
+        <br/>
+        <label>Feed Back <span class="text-secondary">optional</span></label>
+        <textarea class="form-control bg-dark text-white " [(ngModel)]="adminFeedBack"></textarea>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="withdrawId = 0">Close</button>
+        <button type="button" class="btn btn-danger"
+                [class.disabled]="currentStatus === newStatus || newStatus === 'Select'"
+                (click)="changeNewStatus()"
+        >Save
+        </button>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<nav aria-label="Page navigation example" class=" pb-5 border-0">
+  <ul class="pagination border-0 justify-content-center ">
+
+    <li class="page-item bg-dark" [class.disabled]="!withdrawList?.hasPreviousPage">
+      <a class="page-link bg-dark border-0" tabindex="-1" aria-disabled="true" [routerLink]=[]
+         [queryParams]="{page:withdrawList.pageIndex-1!}"> <i class="bi bi-chevron-left"></i> Previous</a>
+    </li>
+
+    <li class="page-item " routerLinkActive="active" *ngIf="withdrawList.hasPreviousPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:withdrawList.pageIndex -1}"
+         class="page-link bg-dark border-0">{{withdrawList.pageIndex - 1}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active">
+      <a [routerLink]=[]
+         [queryParams]="{page:withdrawList.pageIndex}"
+         class="page-link bg-dark border-0">{{withdrawList.pageIndex}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active" *ngIf="withdrawList.hasNextPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:withdrawList.pageIndex+1}"
+         class="page-link bg-dark border-0">{{withdrawList.pageIndex + 1}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="!withdrawList.hasNextPage">
+      <a class="page-link bg-dark border-0" [routerLink]=[] [queryParams]="{page:withdrawList.pageIndex+1}">Next <i
+        class="bi bi-chevron-right"></i></a>
+    </li>
+  </ul>
+</nav>

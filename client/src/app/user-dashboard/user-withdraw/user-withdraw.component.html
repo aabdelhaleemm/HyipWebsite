@@ -1,0 +1,88 @@
+<button class="btn btn-outline-primary" routerLink="history" [queryParams]="{page:1}">Withdraw History</button>
+<br/>
+<br/>
+
+<div *ngIf="isWithdrawActive" class="row row-cols-1 row-cols-md-3 g-4 text-center">
+  <ng-container *ngFor="let a of withdrawCards">
+    <div class="col col-lg-3 col-md-6">
+      <div class="card bg-dark ">
+        <img [src]="a.logoUrl" class="card-img-top  mx-auto" alt="...">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{a.name}}</h5>
+          <div class="card-text bg-dark ">
+            <table class="table table-dark">
+              <thead>
+              <tr>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngIf="a.id == 2">
+                <td class="fw-bold">Charge: <span class="text-warning">{{a.charge}}$</span></td>
+              </tr>
+              <tr *ngIf="a.id != 2">
+                <td class="fw-bold">Charge: <span class="text-warning">{{a.charge}}%</span></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Minimum : <span class="text-warning">{{a.minimum}}</span></td>
+              </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-outline-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#withdrawRequest"
+                    (click)="withdrawClickHandler(a.name!)">Withdraw
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<div class="modal fade" id="withdrawRequest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="stBackdropLabel">Request Withdraw <span class="text-warning">({{currentCard}}
+          )</span></h5>
+        <button type="button" class="btn-close text-white bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <br>
+        <label class="text-start text-white-50">Balance</label>
+        <div class="input-group mb-3 bg-dark text-white">
+          <span class="input-group-text bg-black text-white" id="basic-addon3">$</span>
+          <input [ngModel]="userBalance?.toFixed(2)" disabled type="text" class="form-control bg-dark text-warning" id="basic-url"
+                 aria-describedby="basic-addon3">
+        </div>
+        <label class="text-start text-white-50">Withdraw Amount</label>
+        <div class="input-group mb-3 bg-dark text-white">
+          <span class="input-group-text bg-black text-white" id="basic-addon2">$</span>
+          <input  min="10" [max]="userBalance!" [(ngModel)]="withdrawAmount" type="number"
+                 class="form-control bg-dark text-warning"
+                 id="basic-url1"
+                 aria-describedby="basic-addon3">
+        </div>
+        <label class="text-start text-white-50">Your Wallet Id</label>
+        <div class="input-group mb-3 bg-dark text-white">
+          <span class="input-group-text bg-black text-white" id="basic-addo">ID</span>
+          <input  [(ngModel)]="userWithdrawAccount" type="text"
+                 class="form-control bg-dark text-white" id="basic-ur"
+                 aria-describedby="basic-addon3">
+        </div>
+        <div class="alert alert-secondary">
+          Your withdraw request will be approved within 48 hours
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-success"
+                  [class.disabled]="withdrawAmount! < 10 || userWithdrawAccount.length < 5 || withdrawAmount! > userBalance!"
+                  (click)="requestWithdraw()">
+            Request
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

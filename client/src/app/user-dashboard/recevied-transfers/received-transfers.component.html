@@ -1,0 +1,63 @@
+<div class="table-responsive">
+
+  <h5>Received Transfers</h5>
+  <table class="table table-dark table-striped  table-bordered table-responsive">
+
+    <thead class="table-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Date</th>
+      <th scope="col">Amount</th>
+      <th scope="col">From</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container *ngFor="let d of receivedTransfers.items">
+      <tr>
+        <td>{{d.id}}</td>
+        <td>{{d.created | date :'dd/MM/yyyy, h:mm a '}}</td>
+        <td class="text-success fw-bolder">{{d.amount?.toFixed(2)}}</td>
+        <td>{{d.senderUserName}}</td>
+      </tr>
+    </ng-container>
+    <tr *ngIf="receivedTransfers?.items?.length! === 0" class="text-muted text-center">
+      <td colspan="4">
+        No Transfers Found
+      </td>
+
+    </tr>
+    </tbody>
+    <caption>Total received transfers : {{receivedTransfers?.totalCount}}</caption>
+  </table>
+</div>
+
+<nav aria-label="Page navigation example" class=" pb-5 border-0">
+  <ul class="pagination border-0 justify-content-center ">
+
+    <li class="page-item bg-dark" [class.disabled]="!receivedTransfers?.hasPreviousPage">
+      <a class="page-link bg-dark border-0" tabindex="-1" aria-disabled="true" [routerLink]=[]
+         [queryParams]="{page:receivedTransfers.pageIndex-1!}"> <i class="bi bi-chevron-left"></i> Previous</a>
+    </li>
+
+    <li class="page-item " routerLinkActive="active" *ngIf="receivedTransfers.hasPreviousPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:receivedTransfers.pageIndex -1}"
+         class="page-link bg-dark border-0">{{receivedTransfers.pageIndex - 1}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active">
+      <a [routerLink]=[]
+         [queryParams]="{page:receivedTransfers.pageIndex}"
+         class="page-link bg-dark border-0">{{receivedTransfers.pageIndex}}</a>
+    </li>
+    <li class="page-item" routerLinkActive="active" *ngIf="receivedTransfers.hasNextPage">
+      <a [routerLink]=[]
+         [queryParams]="{page:receivedTransfers.pageIndex+1}"
+         class="page-link bg-dark border-0">{{receivedTransfers.pageIndex + 1}}</a>
+    </li>
+    <li class="page-item" [class.disabled]="!receivedTransfers.hasNextPage">
+      <a class="page-link bg-dark border-0" [routerLink]=[] [queryParams]="{page:receivedTransfers.pageIndex+1}">Next <i
+        class="bi bi-chevron-right"></i></a>
+    </li>
+  </ul>
+</nav>

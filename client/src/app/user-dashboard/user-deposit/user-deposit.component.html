@@ -1,0 +1,120 @@
+<button class="btn btn-outline-primary" routerLink="history" [queryParams]="{page:1}">Deposit History</button>
+<br/>
+<br/>
+
+<div class="row row-cols-1 row-cols-md-3 g-4 text-center ">
+  <ng-container *ngFor="let a of depositCards">
+    <div class="col col-lg-3 col-md-6">
+      <div class="card bg-dark ">
+        <img [src]="a?.logoUrl" class="card-img-top mx-auto" alt="...">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">{{a?.name}}</h5>
+          <div class="card-text bg-dark ">
+            <table class="table table-dark">
+              <thead>
+              <tr>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngIf="a?.id !== 2">
+                <td class="fw-bold">Charge: <span class="text-warning">{{a?.charge}}%</span></td>
+              </tr>
+              <tr *ngIf="a?.id===2">
+                <td class="fw-bold">Charge: <span class="text-warning">{{a?.charge}}$</span></td>
+              </tr>
+              <tr>
+                <td class="fw-bold">Minimum : <span class="text-warning">{{a?.minimum}}</span></td>
+              </tr>
+              </tbody>
+            </table>
+            <button class="btn btn-outline-success"
+                    data-bs-toggle="modal"
+                    data-bs-target="#addDepositRequest"
+                    (click)="depositClickHandler(a?.name!,a?.charge!,a?.walletId!)">Deposit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+
+<div class="modal fade" id="addDepositRequest" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered ">
+    <div class="modal-content bg-dark">
+      <div class="modal-header">
+        <h5 class="modal-title" id="stBackdropLabel">Request Deposit <span class="text-warning">({{currentCard}})</span>
+        </h5>
+        <button type="button" class="btn-close text-white bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body ">
+        <br>
+        <label class="text-start text-white-50">Send To Wallet Id</label>
+        <div class="input-group mb-3 bg-dark text-white">
+          <input [ngModel]="sendToWalletId" disabled type="text"
+                 class="form-control bg-dark text-white" id="basic-u"
+                 aria-describedby="basic-addon3">
+          <span *ngIf="!isOther" (click)="copyToClipboard()"
+                class="input-group-text bg-black text-white" style="cursor: pointer"
+                id="basic-ado"><i class="bi bi-clipboard-check" title="Copy"></i></span>
+          <a *ngIf="isOther"  target="_blank" href="https://t.me/MindsTradeChannel"
+                class="input-group-text bg-black text-white" style="cursor: pointer"
+                id="basic-a"><i  class="bi bi-telegram" title="Telegram"></i></a>
+        </div>
+        <label class="text-start text-white-50">Deposit Amount</label>
+        <form [formGroup]="depositForm">
+          <div class="input-group mb-3 bg-dark text-white">
+
+            <span class="input-group-text bg-black text-white" id="basic-addon3">$</span>
+            <input formControlName="depositAmount" (change)="calculateCommission()" type="text" min="10"
+                   class="form-control bg-dark text-warning"
+                   id="basic-url"
+                   aria-describedby="basic-addon3">
+          </div>
+          <label class="text-start text-white-50">Amount with commission</label>
+          <div class="input-group mb-3 bg-dark text-white">
+            <span class="input-group-text bg-black text-white" id="basic-addon2">$</span>
+            <input disabled [ngModelOptions]="{standalone: true}" [(ngModel)]="amountWithCommission" type="text"
+                   class="form-control bg-dark text-warning"
+                   id="basic-url1"
+                   aria-describedby="basic-addon3">
+          </div>
+          <label class="text-start text-white-50">Your Wallet Id</label>
+          <div class="input-group mb-3 bg-dark text-white">
+            <span class="input-group-text bg-black text-white" id="basic-addo">ID</span>
+            <input formControlName="walletId" type="text"
+                   class="form-control bg-dark text-white" id="basic-ur"
+                   aria-describedby="basic-addon3">
+          </div>
+          <label class="text-start text-white-50">Operation Id</label>
+          <div class="input-group mb-3 bg-dark text-white">
+            <span class="input-group-text bg-black text-white">ID</span>
+            <input formControlName="operationsId" type="text"
+                   class="form-control bg-dark text-white"
+                   aria-describedby="basic-addon3">
+          </div>
+          <label class="text-start text-white-50">Transaction Image</label>
+          <div class="input-group mb-3 bg-dark text-white">
+            <input type="file"
+                   class="form-control bg-dark text-white "
+                   aria-describedby="basic-addon3" accept="image/*"
+                   (change)="onFileChange($event)">
+          </div>
+          <div class="alert alert-secondary">
+            Your deposit request will be approved within 48 hours
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success"
+                    [class.disabled]="depositForm.invalid"
+                    (click)="requestDeposit()">
+              Request
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

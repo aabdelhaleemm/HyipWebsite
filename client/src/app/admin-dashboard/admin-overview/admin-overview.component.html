@@ -1,0 +1,70 @@
+<div class="card bg-dark">
+  <div #ContainerRef class="card-body" #chh id="chh">
+    <ngx-charts-number-card
+      [view]="view2"
+      [scheme]="'vivid'"
+      [results]="chart2"
+      [cardColor]="'#232837'"
+    >
+    </ngx-charts-number-card>
+  </div>
+</div>
+<br>
+
+
+<div class="card bg-dark">
+  <div #ContainerRef class="card-body">
+    <h5 class="text-secondary">Total Investment Amounts Based On Plan</h5>
+    <ngx-charts-advanced-pie-chart
+      (window:resize)="
+        resizeChart(ContainerRef.offsetWidth)
+      "
+      [view]="view3"
+      [results]="chart?.totalInvestmentsAmount"
+      [scheme]="'cool'"
+      style="fill: #ffffff;">
+    </ngx-charts-advanced-pie-chart>
+  </div>
+</div>
+
+<div class="card bg-dark">
+  <div #ContainerRef class="card-body">
+    <h5 class="text-secondary">Total Running Investment Based On Plan</h5>
+    <ngx-charts-pie-chart
+      (window:resize)="
+        resizeChart(ContainerRef.offsetWidth)
+      "
+      [legend]="true"
+      [labels]="true"
+      [view]="view"
+      [results]="chart?.totalInvestmentsCount"
+      [scheme]="'cool'"
+      style="fill: #ffffff;">
+    </ngx-charts-pie-chart>
+  </div>
+</div>
+<br>
+<div class="card bg-dark">
+  <div #ContainerRef class="card-body">
+    <h5 class="text-secondary">Total Investments Amounts</h5>
+    <ngx-charts-bar-vertical
+      (window:resize)="
+        resizeChart(ContainerRef.offsetWidth)
+      "
+      [view]="view"
+
+      [results]="chart?.investmentChart"
+      [scheme]="'cool'"
+      [xAxisLabel]="'Investment Chart'"
+      [yAxisLabel]="'Total Amount'"
+      [legend]="true"
+      [legendTitle]="'Months'"
+
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      [xAxis]="true"
+      [yAxis]="true"
+      style="fill: #ffffff;">
+    </ngx-charts-bar-vertical>
+  </div>
+</div>

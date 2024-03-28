@@ -1,0 +1,119 @@
+<nav class="navbar navbar-expand-lg navbar-dark py-3 fixed-top mainnavbar">
+  <div class="container">
+
+    <a class="navbar-brand fw-bold" routerLink="/">
+      <img src="assets/images/fin.png" alt="" width="45" height="35" class="d-inline-block align-text-top">
+      Minds Trade
+    </a>
+    <div *ngIf="screenWidth<=991 && authService.isLoggedIn() && !authService.isAdmin()" class="ms-auto">
+      <ul class="navbar-nav  " style="margin-left: fill;">
+        <li class="nav-item active">
+          <a class="nav-link " routerLink="/dashboard" routerLinkActive="active">
+            <i class="bi bi-person " style="font-size: 30px"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="screenWidth<=991 && authService.isLoggedIn() && authService.isAdmin()" class="ms-auto">
+      <ul class="navbar-nav  " style="margin-left: fill;">
+        <li class="nav-item active">
+          <a class="nav-link " routerLink="admin" routerLinkActive="active">
+            <i class="bi bi-person " style="font-size: 30px"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div *ngIf="screenWidth<=991 && !authService.isLoggedIn()" class="ms-auto">
+      <ul class="navbar-nav  " style="margin-left: fill;">
+        <li class="nav-item active">
+          <a class="nav-link " routerLink="/login" routerLinkActive="active"
+             [routerLinkActiveOptions]="{exact:true}">
+            <i class="bi bi-person " style="font-size: 30px"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#abd"
+            aria-controls="navbarSupportedContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse" id="abd">
+      <ul class="navbar-nav mr-auto" style="margin-left: auto">
+        <ng-container *ngIf="screenWidth <=991">
+
+          <li *ngIf="authService.isLoggedIn() && !authService.isAdmin()" class="nav-item" data-bs-target="#abd"
+              data-bs-toggle="collapse">
+            <a class="nav-link " routerLink="dashboard" routerLinkActive="active"><i class="bi bi-person"></i>
+              Dashboard
+            </a>
+          </li>
+          <li *ngIf="authService.isAdmin()" class="nav-item" data-bs-target="#abd" data-bs-toggle="collapse">
+            <a class="nav-link " routerLink="admin" routerLinkActive="active"><i class="bi bi-person"></i>
+              Admin Dashboard
+            </a>
+          </li>
+          <li class="nav-item" data-bs-target="#abd" data-bs-toggle="collapse">
+            <a class="nav-link " routerLink="contact" routerLinkActive="active"><i class="bi bi-telephone"></i> Contact
+              us
+            </a>
+          </li>
+
+          <li *ngIf="authService.isLoggedIn()" class="nav-item" data-bs-target="#abd" data-bs-toggle="collapse">
+            <a class="nav-link " href="/" routerLinkActive="active" (click)="authService.logout()"><i
+              class="bi bi-box-arrow-in-left"></i>
+              Logout
+            </a>
+          </li>
+
+          <li *ngIf="!authService.isLoggedIn()" class="nav-item" data-bs-target="#abd" data-bs-toggle="collapse">
+            <a class="nav-link " routerLink="login" routerLinkActive="active"><i class="bi bi-box-arrow-in-right"></i>
+              Login
+            </a>
+          </li>
+        </ng-container>
+        <ng-container *ngIf="screenWidth >991">
+          <li *ngIf="authService.isLoggedIn() && !authService.isAdmin()" class="nav-item">
+            <a class="nav-link " routerLink="dashboard" [routerLinkActiveOptions]="{exact:false}"
+               routerLinkActive="active"><i class="bi bi-person"></i>
+              Dashboard
+            </a>
+          </li>
+
+          <li *ngIf="authService.isLoggedIn() && authService.isAdmin()" class="nav-item">
+            <a class="nav-link " routerLink="admin" [routerLinkActiveOptions]="{exact:false}"
+               routerLinkActive="active"><i class="bi bi-person"></i>
+              Admin Dashboard
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link " routerLink="contact" routerLinkActive="active"><i class="bi bi-telephone"></i> Contact
+              us
+            </a>
+          </li>
+
+          <li *ngIf="authService.isLoggedIn()" class="nav-item">
+            <a class="nav-link " href="/" routerLinkActive="active" (click)="authService.logout()"><i
+              class="bi bi-box-arrow-in-left"></i>
+              Logout
+            </a>
+          </li>
+
+          <li *ngIf="!authService.isLoggedIn()" class="nav-item">
+            <a class="nav-link " routerLink="login" routerLinkActive="active"><i class="bi bi-box-arrow-in-right"></i>
+              Login
+            </a>
+          </li>
+        </ng-container>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<br/>
+<br/>
+<br/>
+
